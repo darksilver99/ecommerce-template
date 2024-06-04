@@ -123,8 +123,8 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color error = const Color(0xFFFF5963);
   late Color info = const Color(0xFFFFFFFF);
 
-  late Color textBox = const Color(0xFF57636C);
-  late Color hyperLink = const Color(0xFF4299FF);
+  late Color textBox = Color(0xFF57636C);
+  late Color hyperLink = Color(0xFF4299FF);
 }
 
 abstract class Typography {

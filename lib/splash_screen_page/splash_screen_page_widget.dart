@@ -1,9 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'splash_screen_page_model.dart';
 export 'splash_screen_page_model.dart';
@@ -57,7 +59,7 @@ class _SplashScreenPageWidgetState extends State<SplashScreenPageWidget> {
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(alertDialogContext),
-                    child: const Text('Ok'),
+                    child: Text('Ok'),
                   ),
                 ],
               );
@@ -73,7 +75,7 @@ class _SplashScreenPageWidgetState extends State<SplashScreenPageWidget> {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(alertDialogContext),
-                  child: const Text('Ok'),
+                  child: Text('Ok'),
                 ),
               ],
             );
@@ -110,7 +112,7 @@ class _SplashScreenPageWidgetState extends State<SplashScreenPageWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Text(
                   'Splash screen',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(

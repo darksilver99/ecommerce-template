@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'backend/api_requests/api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'dart:convert';
@@ -56,37 +57,37 @@ class FFAppState extends ChangeNotifier {
 
   dynamic _userData;
   dynamic get userData => _userData;
-  set userData(dynamic value) {
-    _userData = value;
-    prefs.setString('ff_userData', jsonEncode(value));
+  set userData(dynamic _value) {
+    _userData = _value;
+    prefs.setString('ff_userData', jsonEncode(_value));
   }
 
   dynamic _configData;
   dynamic get configData => _configData;
-  set configData(dynamic value) {
-    _configData = value;
-    prefs.setString('ff_configData', jsonEncode(value));
+  set configData(dynamic _value) {
+    _configData = _value;
+    prefs.setString('ff_configData', jsonEncode(_value));
   }
 
   String _customerID = '';
   String get customerID => _customerID;
-  set customerID(String value) {
-    _customerID = value;
-    prefs.setString('ff_customerID', value);
+  set customerID(String _value) {
+    _customerID = _value;
+    prefs.setString('ff_customerID', _value);
   }
 
   String _api = '';
   String get api => _api;
-  set api(String value) {
-    _api = value;
-    prefs.setString('ff_api', value);
+  set api(String _value) {
+    _api = _value;
+    prefs.setString('ff_api', _value);
   }
 
   String _domain = '';
   String get domain => _domain;
-  set domain(String value) {
-    _domain = value;
-    prefs.setString('ff_domain', value);
+  set domain(String _value) {
+    _domain = _value;
+    prefs.setString('ff_domain', _value);
   }
 }
 
