@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // Model for MainBackgroundView component.
   late MainBackgroundViewModel mainBackgroundViewModel;
@@ -112,7 +111,6 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     mainBackgroundViewModel.dispose();
     textFieldFocusNode1?.dispose();
     textController1?.dispose();
