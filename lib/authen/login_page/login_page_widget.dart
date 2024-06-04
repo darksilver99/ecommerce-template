@@ -477,7 +477,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                                 SystemMouseCursors.click,
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () async {
-                                                context.goNamed('RegisterPage');
+                                                if (Navigator.of(context)
+                                                    .canPop()) {
+                                                  context.pop();
+                                                }
+                                                context
+                                                    .pushNamed('RegisterPage');
                                               },
                                           )
                                         ],
