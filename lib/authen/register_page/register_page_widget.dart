@@ -733,7 +733,19 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                           }
                                           if (_model.checkboxValue!) {
                                             _model.apiResult62s =
-                                                await LoginCall.call();
+                                                await CreateuserCall.call(
+                                              email:
+                                                  _model.textController3.text,
+                                              password:
+                                                  _model.textController5.text,
+                                              firstName:
+                                                  _model.textController1.text,
+                                              lastName:
+                                                  _model.textController2.text,
+                                              phone:
+                                                  _model.textController4.text,
+                                              api: FFAppState().api,
+                                            );
                                             if ((_model
                                                     .apiResult62s?.succeeded ??
                                                 true)) {
