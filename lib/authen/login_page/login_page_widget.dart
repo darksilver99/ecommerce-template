@@ -458,7 +458,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                           mouseCursor: SystemMouseCursors.click,
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () async {
-                                              context.pushNamed('RegisterPage');
+                                              context.goNamed('RegisterPage');
                                             },
                                         )
                                       ],

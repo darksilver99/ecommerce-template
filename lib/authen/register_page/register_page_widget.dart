@@ -1,7 +1,9 @@
+import '/backend/api_requests/api_calls.dart';
 import '/component/main_background_view/main_background_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,6 +58,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -625,7 +629,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                 .secondaryText,
                                       ),
                                       child: Checkbox(
-                                        value: _model.checkboxValue ??= true,
+                                        value: _model.checkboxValue ??= false,
                                         onChanged: (newValue) async {
                                           setState(() =>
                                               _model.checkboxValue = newValue!);
@@ -688,8 +692,121 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     FFButtonWidget(
-                                      onPressed: () {
-                                        print('Button pressed ...');
+                                      onPressed: () async {
+                                        if (_model.formKey.currentState ==
+                                                null ||
+                                            !_model.formKey.currentState!
+                                                .validate()) {
+                                          return;
+                                        }
+                                        if (_model.checkboxValue!) {
+                                          _model.apiResult62s =
+                                              await LoginCall.call();
+                                          if ((_model.apiResult62s?.succeeded ??
+                                              true)) {
+                                            if (functions
+                                                .isSuccess(getJsonField(
+                                              (_model.apiResult62s?.jsonBody ??
+                                                  ''),
+                                              r'''$.status''',
+                                            ))) {
+                                              FFAppState().userData =
+                                                  getJsonField(
+                                                (_model.apiResult62s
+                                                        ?.jsonBody ??
+                                                    ''),
+                                                r'''$.data''',
+                                              );
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        'Welcome ${getJsonField(
+                                                      FFAppState().userData,
+                                                      r'''$.first_name''',
+                                                    ).toString()} ${getJsonField(
+                                                      FFAppState().userData,
+                                                      r'''$.last_name''',
+                                                    ).toString()}'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('Ok'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+
+                                              context.goNamed('HomePage');
+                                            } else {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text(getJsonField(
+                                                      (_model.apiResult62s
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.msg''',
+                                                    ).toString()),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('Ok'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            }
+                                          } else {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text((_model
+                                                          .apiResult62s
+                                                          ?.exceptionMessage ??
+                                                      '')),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          }
+                                        } else {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                    'Terms and conditions is required.'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
+
+                                        setState(() {});
                                       },
                                       text: 'Sigin',
                                       options: FFButtonOptions(
