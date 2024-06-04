@@ -30,7 +30,7 @@ class _SplashScreenPageWidgetState extends State<SplashScreenPageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.apiResult46z = await GetmainconfigCall.call(
-        customerID: '1',
+        customerID: FFAppState().customerID,
       );
       if ((_model.apiResult46z?.succeeded ?? true)) {
         if (functions.isSuccess(getJsonField(
@@ -45,8 +45,32 @@ class _SplashScreenPageWidgetState extends State<SplashScreenPageWidget> {
             (_model.apiResult46z?.jsonBody ?? ''),
             r'''$.data.domain''',
           ).toString().toString();
+          _model.api2 = await GetconfigCall.call(
+            api: FFAppState().api,
+          );
+          if ((_model.api2?.succeeded ?? true)) {
+            FFAppState().configData = getJsonField(
+              (_model.api2?.jsonBody ?? ''),
+              r'''$.data''',
+            );
 
-          context.goNamed('HomePage');
+            context.goNamed('HomePage');
+          } else {
+            await showDialog(
+              context: context,
+              builder: (alertDialogContext) {
+                return AlertDialog(
+                  title: Text((_model.api2?.exceptionMessage ?? '')),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(alertDialogContext),
+                      child: Text('Ok'),
+                    ),
+                  ],
+                );
+              },
+            );
+          }
         } else {
           await showDialog(
             context: context,

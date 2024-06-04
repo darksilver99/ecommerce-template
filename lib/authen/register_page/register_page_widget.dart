@@ -731,76 +731,101 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                   .validate()) {
                                             return;
                                           }
-                                          if (_model.checkboxValue!) {
-                                            _model.apiResult62s =
-                                                await CreateuserCall.call(
-                                              email:
-                                                  _model.textController3.text,
-                                              password:
-                                                  _model.textController5.text,
-                                              firstName:
-                                                  _model.textController1.text,
-                                              lastName:
-                                                  _model.textController2.text,
-                                              phone:
-                                                  _model.textController4.text,
-                                              api: FFAppState().api,
-                                            );
-                                            if ((_model
-                                                    .apiResult62s?.succeeded ??
-                                                true)) {
-                                              if (functions
-                                                  .isSuccess(getJsonField(
-                                                (_model.apiResult62s
-                                                        ?.jsonBody ??
-                                                    ''),
-                                                r'''$.status''',
-                                              ))) {
-                                                FFAppState().userData =
-                                                    getJsonField(
+                                          if (_model.textController5.text ==
+                                              _model.textController6.text) {
+                                            if (_model.checkboxValue!) {
+                                              _model.apiResult62s =
+                                                  await CreateuserCall.call(
+                                                email:
+                                                    _model.textController3.text,
+                                                password:
+                                                    _model.textController5.text,
+                                                firstName:
+                                                    _model.textController1.text,
+                                                lastName:
+                                                    _model.textController2.text,
+                                                phone:
+                                                    _model.textController4.text,
+                                                api: FFAppState().api,
+                                              );
+                                              if ((_model.apiResult62s
+                                                      ?.succeeded ??
+                                                  true)) {
+                                                if (functions
+                                                    .isSuccess(getJsonField(
                                                   (_model.apiResult62s
                                                           ?.jsonBody ??
                                                       ''),
-                                                  r'''$.data''',
-                                                );
-                                                await showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: Text(
-                                                          'Welcome ${getJsonField(
-                                                        FFAppState().userData,
-                                                        r'''$.first_name''',
-                                                      ).toString()} ${getJsonField(
-                                                        FFAppState().userData,
-                                                        r'''$.last_name''',
-                                                      ).toString()}'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext),
-                                                          child: Text('Ok'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
+                                                  r'''$.status''',
+                                                ))) {
+                                                  FFAppState().userData =
+                                                      getJsonField(
+                                                    (_model.apiResult62s
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.data''',
+                                                  );
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: Text(
+                                                            'Welcome ${getJsonField(
+                                                          FFAppState().userData,
+                                                          r'''$.first_name''',
+                                                        ).toString()} ${getJsonField(
+                                                          FFAppState().userData,
+                                                          r'''$.last_name''',
+                                                        ).toString()}'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: Text('Ok'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
 
-                                                context.goNamed('HomePage');
+                                                  context.goNamed('HomePage');
+                                                } else {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title:
+                                                            Text(getJsonField(
+                                                          (_model.apiResult62s
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                          r'''$.msg''',
+                                                        ).toString()),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: Text('Ok'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                }
                                               } else {
                                                 await showDialog(
                                                   context: context,
                                                   builder:
                                                       (alertDialogContext) {
                                                     return AlertDialog(
-                                                      title: Text(getJsonField(
-                                                        (_model.apiResult62s
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                        r'''$.msg''',
-                                                      ).toString()),
+                                                      title: Text((_model
+                                                              .apiResult62s
+                                                              ?.exceptionMessage ??
+                                                          '')),
                                                       actions: [
                                                         TextButton(
                                                           onPressed: () =>
@@ -818,10 +843,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                 context: context,
                                                 builder: (alertDialogContext) {
                                                   return AlertDialog(
-                                                    title: Text((_model
-                                                            .apiResult62s
-                                                            ?.exceptionMessage ??
-                                                        '')),
+                                                    title: Text(
+                                                        'Terms and conditions is required.'),
                                                     actions: [
                                                       TextButton(
                                                         onPressed: () =>
@@ -840,7 +863,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                               builder: (alertDialogContext) {
                                                 return AlertDialog(
                                                   title: Text(
-                                                      'Terms and conditions is required.'),
+                                                      'Password do not match.'),
                                                   actions: [
                                                     TextButton(
                                                       onPressed: () =>

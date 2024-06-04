@@ -62,6 +62,25 @@ class LoginCall {
   }
 }
 
+class GetconfigCall {
+  static Future<ApiCallResponse> call({
+    String? api = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getconfig',
+      apiUrl: '${api}/get_config',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class CreateuserCall {
   static Future<ApiCallResponse> call({
     String? email = '',

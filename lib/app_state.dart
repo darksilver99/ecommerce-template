@@ -69,7 +69,7 @@ class FFAppState extends ChangeNotifier {
     prefs.setString('ff_configData', jsonEncode(_value));
   }
 
-  String _customerID = '';
+  String _customerID = '1';
   String get customerID => _customerID;
   set customerID(String _value) {
     _customerID = _value;
