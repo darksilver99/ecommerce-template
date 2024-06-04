@@ -62,6 +62,40 @@ class LoginCall {
   }
 }
 
+class CreateuserCall {
+  static Future<ApiCallResponse> call({
+    String? email = '',
+    String? password = '',
+    String? api = '',
+    String? firstName = '',
+    String? lastName = '',
+    String? phone = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "email": "${email}",
+  "first_name": "${firstName}",
+  "last_name": "${lastName}",
+  "phone": "${phone}",
+  "password": "${password}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'createuser',
+      apiUrl: '${api}/create_user',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
