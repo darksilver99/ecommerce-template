@@ -93,7 +93,7 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
 
   // State field(s) for Checkbox widget.
   bool? checkboxValue;
-  // Stores action output result for [Backend Call - API (login)] action in Button widget.
+  // Stores action output result for [Backend Call - API (createuser)] action in Button widget.
   ApiCallResponse? apiResult62s;
 
   @override
