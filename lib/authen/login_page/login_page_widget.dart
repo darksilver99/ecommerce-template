@@ -96,13 +96,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                     Expanded(
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0,
-                            valueOrDefault<double>(
-                              MediaQuery.sizeOf(context).height * 0.15,
-                              0.0,
-                            ),
-                            16.0,
-                            0.0),
+                            16.0, 0.0, 16.0, 0.0),
                         child: Form(
                           key: _model.formKey,
                           autovalidateMode: AutovalidateMode.disabled,
@@ -113,7 +107,14 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 16.0),
+                                      0.0,
+                                      valueOrDefault<double>(
+                                        MediaQuery.sizeOf(context).height *
+                                            0.15,
+                                        0.0,
+                                      ),
+                                      0.0,
+                                      16.0),
                                   child: Text(
                                     'Login',
                                     style: FlutterFlowTheme.of(context)
