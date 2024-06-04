@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 
+import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -13,7 +15,7 @@ class GetmainconfigCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "customer_id": "$customerID"
+  "customer_id": "${customerID}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'getmainconfig',
@@ -40,12 +42,12 @@ class LoginCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "username": "$username",
-  "password": "$password"
+  "username": "${username}",
+  "password": "${password}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'login',
-      apiUrl: '$api/login',
+      apiUrl: '${api}/login',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
