@@ -15,6 +15,8 @@ class SplashScreenPageModel extends FlutterFlowModel<SplashScreenPageWidget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (getmainconfig)] action in SplashScreenPage widget.
   ApiCallResponse? apiResult46z;
+  // Stores action output result for [Backend Call - API (getconfig)] action in SplashScreenPage widget.
+  ApiCallResponse? api2;
 
   @override
   void initState(BuildContext context) {}

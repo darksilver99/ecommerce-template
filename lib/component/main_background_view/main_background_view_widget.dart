@@ -40,6 +40,8 @@ class _MainBackgroundViewWidgetState extends State<MainBackgroundViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -48,7 +50,10 @@ class _MainBackgroundViewWidgetState extends State<MainBackgroundViewWidget> {
           ClipRRect(
             borderRadius: BorderRadius.circular(0.0),
             child: Image.network(
-              'https://picsum.photos/seed/598/600',
+              getJsonField(
+                FFAppState().configData,
+                r'''$.background_image''',
+              ).toString(),
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.cover,
