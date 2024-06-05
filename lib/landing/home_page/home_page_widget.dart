@@ -43,6 +43,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -145,6 +147,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       pagingController: _model.setGridViewController(
                         (nextPageMarker) => ProductlistCall.call(
                           start: nextPageMarker.nextPageNumber.toString(),
+                          api: FFAppState().api,
                         ),
                       ),
                       padding: EdgeInsets.fromLTRB(
