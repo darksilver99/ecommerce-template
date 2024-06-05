@@ -396,6 +396,7 @@ class ApiManager {
 
     print("apiUrl : $apiUrl");
     print("body : $body");
+    print("params : $params");
 
     // If we've already made this exact call before and caching is on,
     // return the cached result.
