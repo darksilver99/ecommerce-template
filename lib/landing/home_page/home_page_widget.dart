@@ -47,7 +47,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: [],
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [],
+              ),
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  scrollDirection: Axis.vertical,
+                  children: [],
+                ),
+              ),
+            ],
           ),
         ),
       ),
