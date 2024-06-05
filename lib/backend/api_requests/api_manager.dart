@@ -394,6 +394,9 @@ class ApiManager {
       apiUrl = 'https://$apiUrl';
     }
 
+    print("apiUrl : $apiUrl");
+    print("body : $body");
+
     // If we've already made this exact call before and caching is on,
     // return the cached result.
     if (cache && _apiCache.containsKey(callOptions)) {
