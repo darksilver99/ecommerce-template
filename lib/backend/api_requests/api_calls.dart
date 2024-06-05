@@ -62,6 +62,34 @@ class LoginCall {
   }
 }
 
+class ProductlistCall {
+  static Future<ApiCallResponse> call({
+    String? api = '',
+    String? rows = '',
+    String? start = '',
+    String? uid = '',
+    String? keyword = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'productlist',
+      apiUrl: '${api}/product_list',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'rows': rows,
+        'start': start,
+        'uid': uid,
+        'keyword': keyword,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class GetconfigCall {
   static Future<ApiCallResponse> call({
     String? api = '',
