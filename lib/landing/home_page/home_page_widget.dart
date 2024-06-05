@@ -135,68 +135,65 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ),
               ),
               Expanded(
-                child: Container(
-                  decoration: BoxDecoration(),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                    child: RefreshIndicator(
-                      onRefresh: () async {
-                        setState(
-                            () => _model.gridViewPagingController?.refresh());
-                        await _model.waitForOnePageForGridView();
-                      },
-                      child: PagedGridView<ApiPagingParams, dynamic>(
-                        pagingController: _model.setGridViewController(
-                          (nextPageMarker) => ProductlistCall.call(
-                            start: nextPageMarker.nextPageNumber.toString(),
-                            api: FFAppState().api,
-                          ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      setState(
+                          () => _model.gridViewPagingController?.refresh());
+                      await _model.waitForOnePageForGridView();
+                    },
+                    child: PagedGridView<ApiPagingParams, dynamic>(
+                      pagingController: _model.setGridViewController(
+                        (nextPageMarker) => ProductlistCall.call(
+                          start: nextPageMarker.nextPageNumber.toString(),
+                          api: FFAppState().api,
                         ),
-                        padding: EdgeInsets.fromLTRB(
-                          0,
-                          16.0,
-                          0,
-                          16.0,
-                        ),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 8.0,
-                          mainAxisSpacing: 8.0,
-                          childAspectRatio: 1.0,
-                        ),
-                        scrollDirection: Axis.vertical,
-                        builderDelegate: PagedChildBuilderDelegate<dynamic>(
-                          // Customize what your widget looks like when it's loading the first page.
-                          firstPageProgressIndicatorBuilder: (_) => Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
+                      ),
+                      padding: EdgeInsets.fromLTRB(
+                        0,
+                        16.0,
+                        0,
+                        16.0,
+                      ),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1.0,
+                      ),
+                      scrollDirection: Axis.vertical,
+                      builderDelegate: PagedChildBuilderDelegate<dynamic>(
+                        // Customize what your widget looks like when it's loading the first page.
+                        firstPageProgressIndicatorBuilder: (_) => Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
                               ),
                             ),
                           ),
-                          // Customize what your widget looks like when it's loading another page.
-                          newPageProgressIndicatorBuilder: (_) => Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
+                        ),
+                        // Customize what your widget looks like when it's loading another page.
+                        newPageProgressIndicatorBuilder: (_) => Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
                               ),
                             ),
                           ),
+                        ),
 
-                          itemBuilder: (context, _, productListIndex) {
-                            final productListItem = _model
-                                .gridViewPagingController!
-                                .itemList![productListIndex];
-                            return Material(
+                        itemBuilder: (context, _, productListIndex) {
+                          final productListItem = _model
+                              .gridViewPagingController!
+                              .itemList![productListIndex];
+                          return Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Material(
                               color: Colors.transparent,
                               elevation: 3.0,
                               shape: RoundedRectangleBorder(
@@ -338,9 +335,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ],
                                 ),
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
