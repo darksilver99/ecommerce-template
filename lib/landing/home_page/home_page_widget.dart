@@ -8,7 +8,6 @@ import '/backend/schema/structs/index.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'dart:async';
 import 'package:badges/badges.dart' as badges;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -281,19 +280,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   children: [
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(8.0),
-                                      child: CachedNetworkImage(
-                                        fadeInDuration:
-                                            Duration(milliseconds: 500),
-                                        fadeOutDuration:
-                                            Duration(milliseconds: 500),
-                                        imageUrl: getJsonField(
+                                      child: Image.network(
+                                        getJsonField(
                                           productListItem,
                                           r'''$.display_image''',
                                         ).toString(),
                                         width: double.infinity,
                                         height: double.infinity,
                                         fit: BoxFit.cover,
-                                        errorWidget:
+                                        errorBuilder:
                                             (context, error, stackTrace) =>
                                                 Image.asset(
                                           'assets/images/error_image.jpg',

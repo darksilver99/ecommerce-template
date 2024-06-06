@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -154,19 +153,15 @@ class _CartListPageWidgetState extends State<CartListPageWidget> {
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(0.0),
-                                            child: CachedNetworkImage(
-                                              fadeInDuration:
-                                                  Duration(milliseconds: 500),
-                                              fadeOutDuration:
-                                                  Duration(milliseconds: 500),
-                                              imageUrl: getJsonField(
+                                            child: Image.network(
+                                              getJsonField(
                                                 productListItem,
                                                 r'''$.display_image''',
                                               ).toString(),
                                               width: double.infinity,
                                               height: double.infinity,
                                               fit: BoxFit.cover,
-                                              errorWidget: (context, error,
+                                              errorBuilder: (context, error,
                                                       stackTrace) =>
                                                   Image.asset(
                                                 'assets/images/error_image.jpg',
