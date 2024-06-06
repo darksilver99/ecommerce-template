@@ -41,10 +41,15 @@ class _BookMarkViewWidgetState extends State<BookMarkViewWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      FFAppState().addToBookmarkList(BookmarkDataStruct(
-        isBookmark: widget.isBookmark == 1,
-        refID: widget.refID,
-      ));
+      if (!(FFAppState()
+          .bookmarkList
+          .unique((e) => widget.refID!)
+          .isNotEmpty)) {
+        FFAppState().addToBookmarkList(BookmarkDataStruct(
+          isBookmark: widget.isBookmark == 1,
+          refID: widget.refID,
+        ));
+      }
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
