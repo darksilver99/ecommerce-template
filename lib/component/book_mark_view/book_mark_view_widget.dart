@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -40,7 +41,10 @@ class _BookMarkViewWidgetState extends State<BookMarkViewWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.isBookmark = widget.isBookmark == 1;
+      FFAppState().addToBookmarkList(BookmarkDataStruct(
+        isBookmark: widget.isBookmark == 1,
+        refID: widget.refID,
+      ));
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -57,51 +61,30 @@ class _BookMarkViewWidgetState extends State<BookMarkViewWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Container(
-      decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
-        shape: BoxShape.circle,
-      ),
-      child: ToggleIcon(
-        onPressed: () async {
-          setState(() => _model.isBookmark = !_model.isBookmark!);
-          _model.apiResultv2s = await SetbookmarkCall.call(
-            api: FFAppState().api,
-            uid: getJsonField(
-              FFAppState().userData,
-              r'''$.id''',
-            ).toString(),
-            refId: widget.refID,
-          );
-          if ((_model.apiResultv2s?.succeeded ?? true)) {
-            if (!functions.isSuccess(getJsonField(
-              (_model.apiResultv2s?.jsonBody ?? ''),
-              r'''$.status''',
-            ))) {
-              await showDialog(
-                context: context,
-                builder: (alertDialogContext) {
-                  return AlertDialog(
-                    title: Text(getJsonField(
-                      (_model.apiResultv2s?.jsonBody ?? ''),
-                      r'''$.msg''',
-                    ).toString()),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(alertDialogContext),
-                        child: Text('Ok'),
-                      ),
-                    ],
-                  );
-                },
-              );
-            }
-          } else {
+    return ToggleIcon(
+      onPressed: () async {
+        setState(() => _model.isBookmark = !_model.isBookmark!);
+        _model.apiResultv2s = await SetbookmarkCall.call(
+          api: FFAppState().api,
+          uid: getJsonField(
+            FFAppState().userData,
+            r'''$.id''',
+          ).toString(),
+          refId: widget.refID,
+        );
+        if ((_model.apiResultv2s?.succeeded ?? true)) {
+          if (!functions.isSuccess(getJsonField(
+            (_model.apiResultv2s?.jsonBody ?? ''),
+            r'''$.status''',
+          ))) {
             await showDialog(
               context: context,
               builder: (alertDialogContext) {
                 return AlertDialog(
-                  title: Text((_model.apiResultv2s?.exceptionMessage ?? '')),
+                  title: Text(getJsonField(
+                    (_model.apiResultv2s?.jsonBody ?? ''),
+                    r'''$.msg''',
+                  ).toString()),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(alertDialogContext),
@@ -112,20 +95,35 @@ class _BookMarkViewWidgetState extends State<BookMarkViewWidget> {
               },
             );
           }
+        } else {
+          await showDialog(
+            context: context,
+            builder: (alertDialogContext) {
+              return AlertDialog(
+                title: Text((_model.apiResultv2s?.exceptionMessage ?? '')),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext),
+                    child: Text('Ok'),
+                  ),
+                ],
+              );
+            },
+          );
+        }
 
-          setState(() {});
-        },
-        value: _model.isBookmark!,
-        onIcon: Icon(
-          Icons.favorite_rounded,
-          color: FlutterFlowTheme.of(context).error,
-          size: 24.0,
-        ),
-        offIcon: Icon(
-          Icons.favorite_border_rounded,
-          color: FlutterFlowTheme.of(context).alternate,
-          size: 24.0,
-        ),
+        setState(() {});
+      },
+      value: _model.isBookmark!,
+      onIcon: Icon(
+        Icons.favorite_rounded,
+        color: FlutterFlowTheme.of(context).error,
+        size: 28.0,
+      ),
+      offIcon: Icon(
+        Icons.favorite_border_rounded,
+        color: FlutterFlowTheme.of(context).secondaryText,
+        size: 28.0,
       ),
     );
   }
