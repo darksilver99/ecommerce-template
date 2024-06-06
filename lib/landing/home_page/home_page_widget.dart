@@ -312,67 +312,42 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           FontWeight.bold,
                                                     ),
                                               ),
-                                              if (ProductDataStruct
-                                                          .maybeFromMap(
-                                                              getJsonField(
-                                                    productListItem,
-                                                    r'''$.special_price''',
-                                                  ))!
-                                                      .specialPrice >
-                                                  0.0)
-                                                Text(
-                                                  '฿${ProductDataStruct.maybeFromMap(getJsonField(
-                                                    productListItem,
-                                                    r'''$.normal_price''',
-                                                  ).toString())?.normalPrice?.toString()}',
-                                                  maxLines: 1,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .accent4,
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .lineThrough,
-                                                      ),
-                                                ),
-                                              if (ProductDataStruct
-                                                          .maybeFromMap(
-                                                              getJsonField(
-                                                    productListItem,
-                                                    r'''$.special_price''',
-                                                  ))!
-                                                      .specialPrice >
-                                                  0.0)
-                                                Text(
-                                                  '฿${ProductDataStruct.maybeFromMap(getJsonField(
-                                                    productListItem,
-                                                    r'''$.special_price''',
-                                                  ).toString())?.specialPrice?.toString()}',
-                                                  maxLines: 1,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .error,
-                                                        fontSize: 16.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                ),
+                                              Text(
+                                                '฿${ProductDataStruct.maybeFromMap(productListItem)?.normalPrice?.toString()}',
+                                                maxLines: 1,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .accent4,
+                                                      fontSize: 14.0,
+                                                      letterSpacing: 0.0,
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
+                                                    ),
+                                              ),
+                                              Text(
+                                                '฿112',
+                                                maxLines: 1,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .error,
+                                                      fontSize: 16.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              ),
                                             ],
                                           ),
                                         ),
