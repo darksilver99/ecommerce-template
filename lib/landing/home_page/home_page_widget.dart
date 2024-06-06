@@ -394,60 +394,66 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     Align(
                                       alignment:
                                           AlignmentDirectional(1.0, -1.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Builder(
-                                            builder: (context) {
-                                              if (FFAppState().userData !=
-                                                  null) {
-                                                return BookMarkViewWidget(
-                                                  key: Key(
-                                                      'Keyj1u_${productListIndex}_of_${_model.gridViewPagingController!.itemList!.length}'),
-                                                  isBookmark: ProductDataStruct
-                                                          .maybeFromMap(
-                                                              productListItem)!
-                                                      .isBookmark,
-                                                  refID: getJsonField(
-                                                    productListItem,
-                                                    r'''$.id''',
-                                                  ).toString(),
-                                                );
-                                              } else {
-                                                return FlutterFlowIconButton(
-                                                  icon: Icon(
-                                                    Icons
-                                                        .favorite_border_rounded,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                    size: 28.0,
-                                                  ),
-                                                  onPressed: () async {
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return AlertDialog(
-                                                          title: Text(
-                                                              'Login required.'),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext),
-                                                              child: Text('Ok'),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                );
-                                              }
-                                            },
-                                          ),
-                                        ],
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 4.0, 4.0, 0.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Builder(
+                                              builder: (context) {
+                                                if (FFAppState().userData !=
+                                                    null) {
+                                                  return BookMarkViewWidget(
+                                                    key: Key(
+                                                        'Keyj1u_${productListIndex}_of_${_model.gridViewPagingController!.itemList!.length}'),
+                                                    isBookmark: ProductDataStruct
+                                                            .maybeFromMap(
+                                                                productListItem)!
+                                                        .isBookmark,
+                                                    refID: getJsonField(
+                                                      productListItem,
+                                                      r'''$.id''',
+                                                    ).toString(),
+                                                  );
+                                                } else {
+                                                  return FlutterFlowIconButton(
+                                                    icon: Icon(
+                                                      Icons
+                                                          .favorite_border_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      size: 28.0,
+                                                    ),
+                                                    onPressed: () async {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title: Text(
+                                                                'Login required.'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                  );
+                                                }
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],
