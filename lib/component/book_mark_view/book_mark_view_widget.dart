@@ -50,12 +50,6 @@ class _BookMarkViewWidgetState extends State<BookMarkViewWidget> {
           isBookmark: widget.isBookmark == 1,
           refID: widget.refID,
         ));
-        _model.isBookmarked = FFAppState()
-            .bookmarkList
-            .where((e) => e.refID == widget.refID)
-            .toList()
-            .first
-            .isBookmark;
       }
     });
 
@@ -75,7 +69,7 @@ class _BookMarkViewWidgetState extends State<BookMarkViewWidget> {
 
     return ToggleIcon(
       onPressed: () async {
-        setState(() => _model.isBookmarked = !_model.isBookmarked);
+        setState(() => _model.tmpBool = !_model.tmpBool);
         _model.apiResultv2s = await SetbookmarkCall.call(
           api: FFAppState().api,
           uid: getJsonField(
@@ -126,7 +120,7 @@ class _BookMarkViewWidgetState extends State<BookMarkViewWidget> {
 
         setState(() {});
       },
-      value: _model.isBookmarked,
+      value: _model.tmpBool,
       onIcon: Icon(
         Icons.favorite_rounded,
         color: FlutterFlowTheme.of(context).error,

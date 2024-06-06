@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 class BookMarkViewModel extends FlutterFlowModel<BookMarkViewWidget> {
   ///  Local state fields for this component.
 
-  bool isBookmarked = false;
+  bool tmpBool = false;
 
   ///  State fields for stateful widgets in this component.
 
