@@ -59,8 +59,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            print('FloatingActionButton pressed ...');
+          onPressed: () async {
+            context.pushNamed('CartListPage');
           },
           backgroundColor: FlutterFlowTheme.of(context).primary,
           elevation: 8.0,
@@ -364,7 +364,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 .specialPrice >
                                                             0.0)
                                                           Text(
-                                                            '฿${ProductDataStruct.maybeFromMap(productListItem)?.normalPrice?.toString()}',
+                                                            '฿${formatNumber(
+                                                              ProductDataStruct
+                                                                      .maybeFromMap(
+                                                                          productListItem)
+                                                                  ?.normalPrice,
+                                                              formatType:
+                                                                  FormatType
+                                                                      .decimal,
+                                                              decimalType:
+                                                                  DecimalType
+                                                                      .automatic,
+                                                            )}',
                                                             maxLines: 1,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
@@ -392,7 +403,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     .specialPrice >
                                                                 0.0) {
                                                               return Text(
-                                                                '฿${ProductDataStruct.maybeFromMap(productListItem)?.specialPrice?.toString()}',
+                                                                '฿${formatNumber(
+                                                                  ProductDataStruct
+                                                                          .maybeFromMap(
+                                                                              productListItem)
+                                                                      ?.specialPrice,
+                                                                  formatType:
+                                                                      FormatType
+                                                                          .decimal,
+                                                                  decimalType:
+                                                                      DecimalType
+                                                                          .automatic,
+                                                                )}',
                                                                 maxLines: 1,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
@@ -414,7 +436,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               );
                                                             } else {
                                                               return Text(
-                                                                '฿${ProductDataStruct.maybeFromMap(productListItem)?.normalPrice?.toString()}',
+                                                                '฿${formatNumber(
+                                                                  ProductDataStruct
+                                                                          .maybeFromMap(
+                                                                              productListItem)
+                                                                      ?.normalPrice,
+                                                                  formatType:
+                                                                      FormatType
+                                                                          .decimal,
+                                                                  decimalType:
+                                                                      DecimalType
+                                                                          .automatic,
+                                                                )}',
                                                                 maxLines: 1,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)

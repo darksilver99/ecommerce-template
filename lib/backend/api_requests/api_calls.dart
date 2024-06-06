@@ -71,6 +71,7 @@ class ProductlistCall {
     String? start = '',
     String? uid = '',
     String? keyword = '',
+    String? ids = '',
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'productlist',
@@ -82,6 +83,7 @@ class ProductlistCall {
         'start': start,
         'uid': uid,
         'keyword': keyword,
+        'ids': ids,
       },
       returnBody: true,
       encodeBodyUtf8: false,

@@ -73,6 +73,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'SplashScreenPage',
           path: '/splashScreenPage',
           builder: (context, params) => SplashScreenPageWidget(),
+        ),
+        FFRoute(
+          name: 'CartListPage',
+          path: '/cartListPage',
+          builder: (context, params) => CartListPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

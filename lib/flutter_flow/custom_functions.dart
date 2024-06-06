@@ -13,3 +13,7 @@ import '/backend/schema/structs/index.dart';
 bool isSuccess(dynamic status) {
   return status == 1 ? true : false;
 }
+
+String getProductIDFromCart() {
+  return "1,2";
+}
