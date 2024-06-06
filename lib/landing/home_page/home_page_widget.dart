@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/backend/schema/structs/index.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -330,7 +331,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .accent4,
-                                                        fontSize: 14.0,
+                                                        fontSize: 12.0,
                                                         letterSpacing: 0.0,
                                                         decoration:
                                                             TextDecoration
@@ -395,11 +396,136 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 8.0, 0.0),
-                                        child: Icon(
-                                          Icons.favorite_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          size: 32.0,
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            if (FFAppState().userData != null) {
+                                              _model.apiResultonr =
+                                                  await SetbookmarkCall.call(
+                                                api: FFAppState().api,
+                                                uid: getJsonField(
+                                                  FFAppState().userData,
+                                                  r'''$.id''',
+                                                ).toString(),
+                                                refId: getJsonField(
+                                                  productListItem,
+                                                  r'''$.id''',
+                                                ).toString(),
+                                              );
+                                              if ((_model.apiResultonr
+                                                      ?.succeeded ??
+                                                  true)) {
+                                                if (functions
+                                                    .isSuccess(getJsonField(
+                                                  (_model.apiResultonr
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$.status''',
+                                                ))) {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        getJsonField(
+                                                          (_model.apiResultonr
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                          r'''$.msg''',
+                                                        ).toString(),
+                                                        style: TextStyle(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                        ),
+                                                      ),
+                                                      duration: Duration(
+                                                          milliseconds: 2000),
+                                                      backgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                    ),
+                                                  );
+
+                                                  setState(() {});
+                                                } else {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title:
+                                                            Text(getJsonField(
+                                                          (_model.apiResultonr
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                          r'''$.msg''',
+                                                        ).toString()),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: Text('Ok'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                }
+                                              } else {
+                                                await showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text((_model
+                                                              .apiResultonr
+                                                              ?.exceptionMessage ??
+                                                          '')),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: Text('Ok'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              }
+                                            } else {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title:
+                                                        Text('Login required.'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('Ok'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            }
+
+                                            setState(() {});
+                                          },
+                                          child: Icon(
+                                            Icons.favorite_border_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            size: 32.0,
+                                          ),
                                         ),
                                       ),
                                     ),
