@@ -14,6 +14,8 @@ class BookMarkViewModel extends FlutterFlowModel<BookMarkViewWidget> {
 
   bool? isBookmark = false;
 
+  bool isLoading = true;
+
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Backend Call - API (setbookmark)] action in ToggleIcon widget.
