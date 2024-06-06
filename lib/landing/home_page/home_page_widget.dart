@@ -70,6 +70,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               style: FlutterFlowTheme.of(context).titleSmall.override(
                     fontFamily: 'Readex Pro',
                     color: Colors.white,
+                    fontSize: 12.0,
                     letterSpacing: 0.0,
                   ),
             ),

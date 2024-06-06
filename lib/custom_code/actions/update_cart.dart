@@ -10,4 +10,41 @@ import 'package:flutter/material.dart';
 
 Future updateCart(dynamic productData) async {
   // Add your function code here!
+  double price = productData["special_price"] > 0
+      ? productData["special_price"].toDouble()
+      : productData["normal_price"].toDouble();
+  CartDataStruct cartData = CartDataStruct(
+    id: productData["id"],
+    price: price,
+    uid: FFAppState().userData["id"].toString(),
+    total: 1,
+  );
+
+  if (FFAppState()
+      .cartDataList
+      .where((element) => productData["id"] == element.id)
+      .toList()
+      .isEmpty) {
+    FFAppState().addToCartDataList(cartData);
+  } else {
+    FFAppState()
+        .cartDataList
+        .where((element) => productData["id"] == element.id)
+        .first
+        .total++;
+    FFAppState()
+        .cartDataList
+        .where((element) => productData["id"] == element.id)
+        .first
+        .price += price;
+  }
+
+  int totalSum = FFAppState()
+      .cartDataList
+      .map((element) => element.total)
+      .reduce((value, element) => value + element);
+
+  FFAppState().update(() {
+    FFAppState().totalProductInCart = totalSum;
+  });
 }
