@@ -1,5 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
-import '/components/counter_view_widget.dart';
+import '/component/counter_view/counter_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';

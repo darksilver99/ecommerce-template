@@ -9,7 +9,12 @@ import 'counter_view_model.dart';
 export 'counter_view_model.dart';
 
 class CounterViewWidget extends StatefulWidget {
-  const CounterViewWidget({super.key});
+  const CounterViewWidget({
+    super.key,
+    required this.productID,
+  });
+
+  final int? productID;
 
   @override
   State<CounterViewWidget> createState() => _CounterViewWidgetState();
@@ -41,6 +46,8 @@ class _CounterViewWidgetState extends State<CounterViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -69,10 +76,16 @@ class _CounterViewWidgetState extends State<CounterViewWidget> {
                 letterSpacing: 0.0,
               ),
         ),
-        count: _model.countControllerValue ??= 0,
+        count: _model.countControllerValue ??= FFAppState()
+            .cartDataList
+            .where((e) => e.id == widget.productID)
+            .toList()
+            .first
+            .total,
         updateCount: (count) =>
             setState(() => _model.countControllerValue = count),
         stepSize: 1,
+        minimum: 0,
       ),
     );
   }
