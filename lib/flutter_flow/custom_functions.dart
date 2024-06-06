@@ -14,6 +14,6 @@ bool isSuccess(dynamic status) {
   return status == 1 ? true : false;
 }
 
-String getProductIDFromCart() {
-  return "1,2";
+String getProductIDFromCart(List<CartDataStruct> cartList) {
+  return cartList.map((cart) => cart.id.toString()).join(',');
 }

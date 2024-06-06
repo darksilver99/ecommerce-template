@@ -94,7 +94,8 @@ class _CartListPageWidgetState extends State<CartListPageWidget> {
                       FFAppState().userData,
                       r'''$.id''',
                     ).toString(),
-                    ids: functions.getProductIDFromCart(),
+                    ids: functions.getProductIDFromCart(
+                        FFAppState().cartDataList.toList()),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
