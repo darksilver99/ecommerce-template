@@ -41,44 +41,38 @@ class _CounterViewWidgetState extends State<CounterViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 8.0, 8.0),
-      child: Container(
-        width: 80.0,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryText,
-          borderRadius: BorderRadius.circular(0.0),
-          shape: BoxShape.rectangle,
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(0.0),
+        shape: BoxShape.rectangle,
+      ),
+      child: FlutterFlowCountController(
+        decrementIconBuilder: (enabled) => FaIcon(
+          FontAwesomeIcons.minus,
+          color: enabled
+              ? FlutterFlowTheme.of(context).primary
+              : FlutterFlowTheme.of(context).alternate,
+          size: 20.0,
         ),
-        child: FlutterFlowCountController(
-          decrementIconBuilder: (enabled) => FaIcon(
-            FontAwesomeIcons.minusCircle,
-            color: enabled
-                ? FlutterFlowTheme.of(context).primary
-                : FlutterFlowTheme.of(context).alternate,
-            size: 24.0,
-          ),
-          incrementIconBuilder: (enabled) => FaIcon(
-            FontAwesomeIcons.plusCircle,
-            color: enabled
-                ? FlutterFlowTheme.of(context).primary
-                : FlutterFlowTheme.of(context).alternate,
-            size: 24.0,
-          ),
-          countBuilder: (count) => Text(
-            count.toString(),
-            style: FlutterFlowTheme.of(context).titleLarge.override(
-                  fontFamily: 'Outfit',
-                  fontSize: 26.0,
-                  letterSpacing: 0.0,
-                ),
-          ),
-          count: _model.countControllerValue ??= 0,
-          updateCount: (count) =>
-              setState(() => _model.countControllerValue = count),
-          stepSize: 1,
+        incrementIconBuilder: (enabled) => FaIcon(
+          FontAwesomeIcons.plus,
+          color: enabled
+              ? FlutterFlowTheme.of(context).primary
+              : FlutterFlowTheme.of(context).alternate,
+          size: 20.0,
         ),
+        countBuilder: (count) => Text(
+          count.toString(),
+          style: FlutterFlowTheme.of(context).titleLarge.override(
+                fontFamily: 'Outfit',
+                letterSpacing: 0.0,
+              ),
+        ),
+        count: _model.countControllerValue ??= 0,
+        updateCount: (count) =>
+            setState(() => _model.countControllerValue = count),
+        stepSize: 1,
       ),
     );
   }

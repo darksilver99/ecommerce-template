@@ -86,88 +86,94 @@ class _CartListPageWidgetState extends State<CartListPageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              FutureBuilder<ApiCallResponse>(
-                future: ProductlistCall.call(
-                  api: FFAppState().api,
-                  rows: '100',
-                  uid: getJsonField(
-                    FFAppState().userData,
-                    r'''$.id''',
-                  ).toString(),
-                  ids: functions.getProductIDFromCart(),
-                ),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50.0,
-                        height: 50.0,
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            FlutterFlowTheme.of(context).primary,
+              Expanded(
+                child: FutureBuilder<ApiCallResponse>(
+                  future: ProductlistCall.call(
+                    api: FFAppState().api,
+                    rows: '100',
+                    uid: getJsonField(
+                      FFAppState().userData,
+                      r'''$.id''',
+                    ).toString(),
+                    ids: functions.getProductIDFromCart(),
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }
-                  final listViewProductlistResponse = snapshot.data!;
-                  return Builder(
-                    builder: (context) {
-                      final productList = getJsonField(
-                        listViewProductlistResponse.jsonBody,
-                        r'''$.data''',
-                      ).toList();
-                      return ListView.builder(
-                        padding: EdgeInsets.fromLTRB(
-                          0,
-                          16.0,
-                          0,
-                          16.0,
-                        ),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: productList.length,
-                        itemBuilder: (context, productListIndex) {
-                          final productListItem = productList[productListIndex];
-                          return Container(
-                            width: double.infinity,
-                            height: 100.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Row(
+                      );
+                    }
+                    final listViewProductlistResponse = snapshot.data!;
+                    return Builder(
+                      builder: (context) {
+                        final productList = getJsonField(
+                          listViewProductlistResponse.jsonBody,
+                          r'''$.data''',
+                        ).toList();
+                        return ListView.builder(
+                          padding: EdgeInsets.fromLTRB(
+                            0,
+                            0,
+                            0,
+                            16.0,
+                          ),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: productList.length,
+                          itemBuilder: (context, productListIndex) {
+                            final productListItem =
+                                productList[productListIndex];
+                            return Container(
+                              width: double.infinity,
+                              height: 100.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(0.0),
-                                          child: CachedNetworkImage(
-                                            fadeInDuration:
-                                                Duration(milliseconds: 500),
-                                            fadeOutDuration:
-                                                Duration(milliseconds: 500),
-                                            imageUrl: getJsonField(
-                                              productListItem,
-                                              r'''$.display_image''',
-                                            ).toString(),
-                                            width: 84.0,
-                                            height: double.infinity,
-                                            fit: BoxFit.cover,
-                                            errorWidget:
-                                                (context, error, stackTrace) =>
-                                                    Image.asset(
-                                              'assets/images/error_image.jpg',
-                                              width: 84.0,
+                                      Container(
+                                        width: 100.0,
+                                        height: 100.0,
+                                        decoration: BoxDecoration(),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(0.0),
+                                            child: CachedNetworkImage(
+                                              fadeInDuration:
+                                                  Duration(milliseconds: 500),
+                                              fadeOutDuration:
+                                                  Duration(milliseconds: 500),
+                                              imageUrl: getJsonField(
+                                                productListItem,
+                                                r'''$.display_image''',
+                                              ).toString(),
+                                              width: double.infinity,
                                               height: double.infinity,
                                               fit: BoxFit.cover,
+                                              errorWidget: (context, error,
+                                                      stackTrace) =>
+                                                  Image.asset(
+                                                'assets/images/error_image.jpg',
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -177,156 +183,187 @@ class _CartListPageWidgetState extends State<CartListPageWidget> {
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 8.0, 8.0),
-                                          child: Column(
+                                          child: Row(
                                             mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
                                             children: [
                                               Expanded(
-                                                child: Text(
-                                                  getJsonField(
-                                                    productListItem,
-                                                    r'''$.subject''',
-                                                  ).toString(),
-                                                  maxLines: 1,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        fontSize: 16.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                flex: 2,
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 8.0, 0.0),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        getJsonField(
+                                                          productListItem,
+                                                          r'''$.subject''',
+                                                        ).toString(),
+                                                        maxLines: 1,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Readex Pro',
+                                                              fontSize: 16.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
                                                       ),
+                                                      if (ProductDataStruct
+                                                                  .maybeFromMap(
+                                                                      productListItem)!
+                                                              .specialPrice >
+                                                          0.0)
+                                                        Text(
+                                                          '฿${formatNumber(
+                                                            ProductDataStruct
+                                                                    .maybeFromMap(
+                                                                        productListItem)
+                                                                ?.normalPrice,
+                                                            formatType:
+                                                                FormatType
+                                                                    .decimal,
+                                                            decimalType:
+                                                                DecimalType
+                                                                    .automatic,
+                                                          )}',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Readex Pro',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
+                                                                fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .lineThrough,
+                                                              ),
+                                                        ),
+                                                      Builder(
+                                                        builder: (context) {
+                                                          if (ProductDataStruct
+                                                                      .maybeFromMap(
+                                                                          productListItem)!
+                                                                  .specialPrice >
+                                                              0.0) {
+                                                            return Text(
+                                                              '฿${formatNumber(
+                                                                ProductDataStruct
+                                                                        .maybeFromMap(
+                                                                            productListItem)
+                                                                    ?.specialPrice,
+                                                                formatType:
+                                                                    FormatType
+                                                                        .decimal,
+                                                                decimalType:
+                                                                    DecimalType
+                                                                        .automatic,
+                                                              )}',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .error,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                            );
+                                                          } else {
+                                                            return Text(
+                                                              '฿${formatNumber(
+                                                                ProductDataStruct
+                                                                        .maybeFromMap(
+                                                                            productListItem)
+                                                                    ?.normalPrice,
+                                                                formatType:
+                                                                    FormatType
+                                                                        .decimal,
+                                                                decimalType:
+                                                                    DecimalType
+                                                                        .automatic,
+                                                              )}',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .error,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                            );
+                                                          }
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                              if (ProductDataStruct
-                                                          .maybeFromMap(
-                                                              productListItem)!
-                                                      .specialPrice >
-                                                  0.0)
-                                                Text(
-                                                  '฿${formatNumber(
-                                                    ProductDataStruct
-                                                            .maybeFromMap(
-                                                                productListItem)
-                                                        ?.normalPrice,
-                                                    formatType:
-                                                        FormatType.decimal,
-                                                    decimalType:
-                                                        DecimalType.automatic,
-                                                  )}',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .lineThrough,
-                                                      ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: CounterViewWidget(
+                                                  key: Key(
+                                                      'Keytdi_${productListIndex}_of_${productList.length}'),
                                                 ),
-                                              Builder(
-                                                builder: (context) {
-                                                  if (ProductDataStruct
-                                                              .maybeFromMap(
-                                                                  productListItem)!
-                                                          .specialPrice >
-                                                      0.0) {
-                                                    return Text(
-                                                      '฿${formatNumber(
-                                                        ProductDataStruct
-                                                                .maybeFromMap(
-                                                                    productListItem)
-                                                            ?.specialPrice,
-                                                        formatType:
-                                                            FormatType.decimal,
-                                                        decimalType: DecimalType
-                                                            .automatic,
-                                                      )}',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Readex Pro',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .error,
-                                                            fontSize: 16.0,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    );
-                                                  } else {
-                                                    return Text(
-                                                      '฿${formatNumber(
-                                                        ProductDataStruct
-                                                                .maybeFromMap(
-                                                                    productListItem)
-                                                            ?.normalPrice,
-                                                        formatType:
-                                                            FormatType.decimal,
-                                                        decimalType: DecimalType
-                                                            .automatic,
-                                                      )}',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Readex Pro',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .error,
-                                                            fontSize: 16.0,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    );
-                                                  }
-                                                },
                                               ),
                                             ],
                                           ),
                                         ),
                                       ),
-                                      CounterViewWidget(
-                                        key: Key(
-                                            'Key1j8_${productListIndex}_of_${productList.length}'),
-                                      ),
                                     ],
                                   ),
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  height: 1.0,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                  Container(
+                                    width: double.infinity,
+                                    height: 1.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  );
-                },
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ],
           ),
