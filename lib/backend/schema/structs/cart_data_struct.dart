@@ -7,7 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class CartDataStruct extends BaseStruct {
   CartDataStruct({
-    String? id,
+    int? id,
     double? price,
     String? uid,
     int? total,
@@ -17,9 +17,10 @@ class CartDataStruct extends BaseStruct {
         _total = total;
 
   // "id" field.
-  String? _id;
-  String get id => _id ?? '';
-  set id(String? val) => _id = val;
+  int? _id;
+  int get id => _id ?? 0;
+  set id(int? val) => _id = val;
+  void incrementId(int amount) => _id = id + amount;
   bool hasId() => _id != null;
 
   // "price" field.
@@ -43,7 +44,7 @@ class CartDataStruct extends BaseStruct {
   bool hasTotal() => _total != null;
 
   static CartDataStruct fromMap(Map<String, dynamic> data) => CartDataStruct(
-        id: data['id'] as String?,
+        id: castToType<int>(data['id']),
         price: castToType<double>(data['price']),
         uid: data['uid'] as String?,
         total: castToType<int>(data['total']),
@@ -63,7 +64,7 @@ class CartDataStruct extends BaseStruct {
   Map<String, dynamic> toSerializableMap() => {
         'id': serializeParam(
           _id,
-          ParamType.String,
+          ParamType.int,
         ),
         'price': serializeParam(
           _price,
@@ -83,7 +84,7 @@ class CartDataStruct extends BaseStruct {
       CartDataStruct(
         id: deserializeParam(
           data['id'],
-          ParamType.String,
+          ParamType.int,
           false,
         ),
         price: deserializeParam(
@@ -120,7 +121,7 @@ class CartDataStruct extends BaseStruct {
 }
 
 CartDataStruct createCartDataStruct({
-  String? id,
+  int? id,
   double? price,
   String? uid,
   int? total,
