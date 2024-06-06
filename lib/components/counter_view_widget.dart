@@ -49,14 +49,14 @@ class _CounterViewWidgetState extends State<CounterViewWidget> {
       ),
       child: FlutterFlowCountController(
         decrementIconBuilder: (enabled) => FaIcon(
-          FontAwesomeIcons.minus,
+          FontAwesomeIcons.minusCircle,
           color: enabled
               ? FlutterFlowTheme.of(context).primary
               : FlutterFlowTheme.of(context).alternate,
           size: 20.0,
         ),
         incrementIconBuilder: (enabled) => FaIcon(
-          FontAwesomeIcons.plus,
+          FontAwesomeIcons.plusCircle,
           color: enabled
               ? FlutterFlowTheme.of(context).primary
               : FlutterFlowTheme.of(context).alternate,

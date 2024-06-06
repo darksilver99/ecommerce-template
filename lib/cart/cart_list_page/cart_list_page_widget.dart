@@ -147,7 +147,7 @@ class _CartListPageWidgetState extends State<CartListPageWidget> {
                                     children: [
                                       Container(
                                         width: 100.0,
-                                        height: 100.0,
+                                        height: 99.0,
                                         decoration: BoxDecoration(),
                                         child: Padding(
                                           padding: EdgeInsets.all(8.0),
@@ -187,7 +187,7 @@ class _CartListPageWidgetState extends State<CartListPageWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Expanded(
-                                                flex: 2,
+                                                flex: 5,
                                                 child: Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
@@ -335,7 +335,7 @@ class _CartListPageWidgetState extends State<CartListPageWidget> {
                                                 ),
                                               ),
                                               Expanded(
-                                                flex: 1,
+                                                flex: 4,
                                                 child: CounterViewWidget(
                                                   key: Key(
                                                       'Keytdi_${productListIndex}_of_${productList.length}'),
