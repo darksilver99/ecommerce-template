@@ -90,6 +90,35 @@ class FFAppState extends ChangeNotifier {
     _domain = _value;
     prefs.setString('ff_domain', _value);
   }
+
+  List<BookmarkDataStruct> _bookmarkList = [];
+  List<BookmarkDataStruct> get bookmarkList => _bookmarkList;
+  set bookmarkList(List<BookmarkDataStruct> _value) {
+    _bookmarkList = _value;
+  }
+
+  void addToBookmarkList(BookmarkDataStruct _value) {
+    _bookmarkList.add(_value);
+  }
+
+  void removeFromBookmarkList(BookmarkDataStruct _value) {
+    _bookmarkList.remove(_value);
+  }
+
+  void removeAtIndexFromBookmarkList(int _index) {
+    _bookmarkList.removeAt(_index);
+  }
+
+  void updateBookmarkListAtIndex(
+    int _index,
+    BookmarkDataStruct Function(BookmarkDataStruct) updateFn,
+  ) {
+    _bookmarkList[_index] = updateFn(_bookmarkList[_index]);
+  }
+
+  void insertAtIndexInBookmarkList(int _index, BookmarkDataStruct _value) {
+    _bookmarkList.insert(_index, _value);
+  }
 }
 
 void _safeInit(Function() initializeField) {
