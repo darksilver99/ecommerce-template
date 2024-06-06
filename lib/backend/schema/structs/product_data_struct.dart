@@ -10,9 +10,11 @@ class ProductDataStruct extends BaseStruct {
     double? normalPrice,
     double? specialPrice,
     int? isBookmark,
+    String? id,
   })  : _normalPrice = normalPrice,
         _specialPrice = specialPrice,
-        _isBookmark = isBookmark;
+        _isBookmark = isBookmark,
+        _id = id;
 
   // "normal_price" field.
   double? _normalPrice;
@@ -37,11 +39,18 @@ class ProductDataStruct extends BaseStruct {
   void incrementIsBookmark(int amount) => _isBookmark = isBookmark + amount;
   bool hasIsBookmark() => _isBookmark != null;
 
+  // "id" field.
+  String? _id;
+  String get id => _id ?? '';
+  set id(String? val) => _id = val;
+  bool hasId() => _id != null;
+
   static ProductDataStruct fromMap(Map<String, dynamic> data) =>
       ProductDataStruct(
         normalPrice: castToType<double>(data['normal_price']),
         specialPrice: castToType<double>(data['special_price']),
         isBookmark: castToType<int>(data['is_bookmark']),
+        id: data['id'] as String?,
       );
 
   static ProductDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -52,6 +61,7 @@ class ProductDataStruct extends BaseStruct {
         'normal_price': _normalPrice,
         'special_price': _specialPrice,
         'is_bookmark': _isBookmark,
+        'id': _id,
       }.withoutNulls;
 
   @override
@@ -67,6 +77,10 @@ class ProductDataStruct extends BaseStruct {
         'is_bookmark': serializeParam(
           _isBookmark,
           ParamType.int,
+        ),
+        'id': serializeParam(
+          _id,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -87,6 +101,11 @@ class ProductDataStruct extends BaseStruct {
           ParamType.int,
           false,
         ),
+        id: deserializeParam(
+          data['id'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -97,21 +116,24 @@ class ProductDataStruct extends BaseStruct {
     return other is ProductDataStruct &&
         normalPrice == other.normalPrice &&
         specialPrice == other.specialPrice &&
-        isBookmark == other.isBookmark;
+        isBookmark == other.isBookmark &&
+        id == other.id;
   }
 
   @override
   int get hashCode =>
-      const ListEquality().hash([normalPrice, specialPrice, isBookmark]);
+      const ListEquality().hash([normalPrice, specialPrice, isBookmark, id]);
 }
 
 ProductDataStruct createProductDataStruct({
   double? normalPrice,
   double? specialPrice,
   int? isBookmark,
+  String? id,
 }) =>
     ProductDataStruct(
       normalPrice: normalPrice,
       specialPrice: specialPrice,
       isBookmark: isBookmark,
+      id: id,
     );

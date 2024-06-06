@@ -47,6 +47,25 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _domain = prefs.getString('ff_domain') ?? _domain;
     });
+    _safeInit(() {
+      _cartDataList = prefs
+              .getStringList('ff_cartDataList')
+              ?.map((x) {
+                try {
+                  return CartDataStruct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _cartDataList;
+    });
+    _safeInit(() {
+      _totalProductInCart =
+          prefs.getInt('ff_totalProductInCart') ?? _totalProductInCart;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -118,6 +137,54 @@ class FFAppState extends ChangeNotifier {
 
   void insertAtIndexInBookmarkList(int _index, BookmarkDataStruct _value) {
     _bookmarkList.insert(_index, _value);
+  }
+
+  List<CartDataStruct> _cartDataList = [];
+  List<CartDataStruct> get cartDataList => _cartDataList;
+  set cartDataList(List<CartDataStruct> _value) {
+    _cartDataList = _value;
+    prefs.setStringList(
+        'ff_cartDataList', _value.map((x) => x.serialize()).toList());
+  }
+
+  void addToCartDataList(CartDataStruct _value) {
+    _cartDataList.add(_value);
+    prefs.setStringList(
+        'ff_cartDataList', _cartDataList.map((x) => x.serialize()).toList());
+  }
+
+  void removeFromCartDataList(CartDataStruct _value) {
+    _cartDataList.remove(_value);
+    prefs.setStringList(
+        'ff_cartDataList', _cartDataList.map((x) => x.serialize()).toList());
+  }
+
+  void removeAtIndexFromCartDataList(int _index) {
+    _cartDataList.removeAt(_index);
+    prefs.setStringList(
+        'ff_cartDataList', _cartDataList.map((x) => x.serialize()).toList());
+  }
+
+  void updateCartDataListAtIndex(
+    int _index,
+    CartDataStruct Function(CartDataStruct) updateFn,
+  ) {
+    _cartDataList[_index] = updateFn(_cartDataList[_index]);
+    prefs.setStringList(
+        'ff_cartDataList', _cartDataList.map((x) => x.serialize()).toList());
+  }
+
+  void insertAtIndexInCartDataList(int _index, CartDataStruct _value) {
+    _cartDataList.insert(_index, _value);
+    prefs.setStringList(
+        'ff_cartDataList', _cartDataList.map((x) => x.serialize()).toList());
+  }
+
+  int _totalProductInCart = 0;
+  int get totalProductInCart => _totalProductInCart;
+  set totalProductInCart(int _value) {
+    _totalProductInCart = _value;
+    prefs.setInt('ff_totalProductInCart', _value);
   }
 }
 

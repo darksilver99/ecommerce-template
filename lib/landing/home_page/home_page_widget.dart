@@ -5,7 +5,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/backend/schema/structs/index.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'dart:async';
+import 'package:badges/badges.dart' as badges;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +58,36 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            print('FloatingActionButton pressed ...');
+          },
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          elevation: 8.0,
+          child: badges.Badge(
+            badgeContent: Text(
+              FFAppState().totalProductInCart.toString(),
+              style: FlutterFlowTheme.of(context).titleSmall.override(
+                    fontFamily: 'Readex Pro',
+                    color: Colors.white,
+                    letterSpacing: 0.0,
+                  ),
+            ),
+            showBadge: FFAppState().totalProductInCart > 0,
+            shape: badges.BadgeShape.circle,
+            badgeColor: FlutterFlowTheme.of(context).error,
+            elevation: 4.0,
+            padding: EdgeInsets.all(6.0),
+            position: badges.BadgePosition.topEnd(),
+            animationType: badges.BadgeAnimationType.scale,
+            toAnimate: true,
+            child: Icon(
+              Icons.shopping_cart_rounded,
+              color: FlutterFlowTheme.of(context).secondaryText,
+              size: 28.0,
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -314,77 +346,169 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           FontWeight.bold,
                                                     ),
                                               ),
-                                              if (ProductDataStruct
-                                                          .maybeFromMap(
-                                                              productListItem)!
-                                                      .specialPrice >
-                                                  0.0)
-                                                Text(
-                                                  '฿${ProductDataStruct.maybeFromMap(productListItem)?.normalPrice?.toString()}',
-                                                  maxLines: 1,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .accent4,
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .lineThrough,
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Expanded(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        if (ProductDataStruct
+                                                                    .maybeFromMap(
+                                                                        productListItem)!
+                                                                .specialPrice >
+                                                            0.0)
+                                                          Text(
+                                                            '฿${ProductDataStruct.maybeFromMap(productListItem)?.normalPrice?.toString()}',
+                                                            maxLines: 1,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .accent4,
+                                                                  fontSize:
+                                                                      12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .lineThrough,
+                                                                ),
+                                                          ),
+                                                        Builder(
+                                                          builder: (context) {
+                                                            if (ProductDataStruct
+                                                                        .maybeFromMap(
+                                                                            productListItem)!
+                                                                    .specialPrice >
+                                                                0.0) {
+                                                              return Text(
+                                                                '฿${ProductDataStruct.maybeFromMap(productListItem)?.specialPrice?.toString()}',
+                                                                maxLines: 1,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .error,
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                              );
+                                                            } else {
+                                                              return Text(
+                                                                '฿${ProductDataStruct.maybeFromMap(productListItem)?.normalPrice?.toString()}',
+                                                                maxLines: 1,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .error,
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                              );
+                                                            }
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            1.0, 1.0),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  4.0,
+                                                                  4.0),
+                                                      child:
+                                                          FlutterFlowIconButton(
+                                                        borderColor:
+                                                            Colors.transparent,
+                                                        borderRadius: 100.0,
+                                                        borderWidth: 1.0,
+                                                        buttonSize: 36.0,
+                                                        fillColor: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        icon: Icon(
+                                                          Icons
+                                                              .shopping_cart_rounded,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          size: 20.0,
+                                                        ),
+                                                        onPressed: () async {
+                                                          var confirmDialogResponse =
+                                                              await showDialog<
+                                                                      bool>(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (alertDialogContext) {
+                                                                      return AlertDialog(
+                                                                        title: Text(
+                                                                            'Buy ?'),
+                                                                        actions: [
+                                                                          TextButton(
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(alertDialogContext, false),
+                                                                            child:
+                                                                                Text('Cancel'),
+                                                                          ),
+                                                                          TextButton(
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(alertDialogContext, true),
+                                                                            child:
+                                                                                Text('Confirm'),
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  ) ??
+                                                                  false;
+                                                          if (confirmDialogResponse) {
+                                                            await actions
+                                                                .updateCart(
+                                                              productListItem,
+                                                            );
+                                                          }
+                                                        },
                                                       ),
-                                                ),
-                                              Builder(
-                                                builder: (context) {
-                                                  if (ProductDataStruct
-                                                              .maybeFromMap(
-                                                                  productListItem)!
-                                                          .specialPrice >
-                                                      0.0) {
-                                                    return Text(
-                                                      '฿${ProductDataStruct.maybeFromMap(productListItem)?.specialPrice?.toString()}',
-                                                      maxLines: 1,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Readex Pro',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .error,
-                                                            fontSize: 16.0,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    );
-                                                  } else {
-                                                    return Text(
-                                                      '฿${ProductDataStruct.maybeFromMap(productListItem)?.normalPrice?.toString()}',
-                                                      maxLines: 1,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Readex Pro',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .error,
-                                                            fontSize: 16.0,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    );
-                                                  }
-                                                },
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
