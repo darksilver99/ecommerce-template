@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/component/book_mark_view/book_mark_view_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -396,13 +397,55 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          BookMarkViewWidget(
-                                            key: Key(
-                                                'Keyiyr_${productListIndex}_of_${_model.gridViewPagingController!.itemList!.length}'),
-                                            isBookmark:
-                                                ProductDataStruct.maybeFromMap(
-                                                        productListItem)!
-                                                    .isBookmark,
+                                          Builder(
+                                            builder: (context) {
+                                              if (FFAppState().userData !=
+                                                  null) {
+                                                return BookMarkViewWidget(
+                                                  key: Key(
+                                                      'Keyj1u_${productListIndex}_of_${_model.gridViewPagingController!.itemList!.length}'),
+                                                  isBookmark: ProductDataStruct
+                                                          .maybeFromMap(
+                                                              productListItem)!
+                                                      .isBookmark,
+                                                  refID: getJsonField(
+                                                    productListItem,
+                                                    r'''$.id''',
+                                                  ).toString(),
+                                                );
+                                              } else {
+                                                return FlutterFlowIconButton(
+                                                  icon: Icon(
+                                                    Icons
+                                                        .favorite_border_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    size: 28.0,
+                                                  ),
+                                                  onPressed: () async {
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                              'Login required.'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                );
+                                              }
+                                            },
                                           ),
                                         ],
                                       ),
