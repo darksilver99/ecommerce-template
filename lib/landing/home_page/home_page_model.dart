@@ -28,6 +28,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   // Stores action output result for [Backend Call - API (setbookmark)] action in Icon widget.
   ApiCallResponse? apiResultonr;
+  // Stores action output result for [Backend Call - API (setbookmark)] action in Icon widget.
+  ApiCallResponse? apiResultonr2;
 
   @override
   void initState(BuildContext context) {}
