@@ -145,6 +145,36 @@ class CreateuserCall {
   }
 }
 
+class SetbookmarkCall {
+  static Future<ApiCallResponse> call({
+    String? api = '',
+    String? uid = '',
+    String? refId = '',
+    String? cmd = 'product',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "uid": "${uid}",
+  "ref_id": "${refId}",
+  "cmd": "${cmd}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'setbookmark',
+      apiUrl: '${api}/set_bookmark',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

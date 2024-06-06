@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/backend/schema/structs/index.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'home_page_widget.dart' show HomePageWidget;
 import 'package:cached_network_image/cached_network_image.dart';
@@ -24,6 +25,11 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   PagingController<ApiPagingParams, dynamic>? gridViewPagingController;
   Function(ApiPagingParams nextPageMarker)? gridViewApiCall;
+
+  // Stores action output result for [Backend Call - API (setbookmark)] action in Icon widget.
+  ApiCallResponse? apiResultonr;
+  // Stores action output result for [Backend Call - API (setbookmark)] action in Icon widget.
+  ApiCallResponse? apiResultonr2;
 
   @override
   void initState(BuildContext context) {}
