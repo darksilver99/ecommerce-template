@@ -39,6 +39,17 @@ class _BookMarkViewWidgetState extends State<BookMarkViewWidget> {
     super.initState();
     _model = createModel(context, () => BookMarkViewModel());
 
+    if (!(FFAppState()
+        .bookmarkList
+        .where((e) => widget.refID == e.refID)
+        .toList()
+        .isNotEmpty)) {
+      FFAppState().addToBookmarkList(BookmarkDataStruct(
+        isBookmark: widget.isBookmark == 1,
+        refID: widget.refID,
+      ));
+    }
+
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (!(FFAppState()
@@ -69,7 +80,8 @@ class _BookMarkViewWidgetState extends State<BookMarkViewWidget> {
 
     return ToggleIcon(
       onPressed: () async {
-        setState(() => _model.tmpBool = !_model.tmpBool);
+        //setState(() => _model.tmpBool = !_model.tmpBool);
+        setState(() => FFAppState().bookmarkList.where((e) => widget.refID == e.refID).first.isBookmark = !FFAppState().bookmarkList.where((e) => widget.refID == e.refID).first.isBookmark);
         _model.apiResultv2s = await SetbookmarkCall.call(
           api: FFAppState().api,
           uid: getJsonField(
@@ -120,7 +132,8 @@ class _BookMarkViewWidgetState extends State<BookMarkViewWidget> {
 
         setState(() {});
       },
-      value: _model.tmpBool,
+      //value: _model.tmpBool,
+      value: FFAppState().bookmarkList.where((e) => widget.refID == e.refID).first.isBookmark,
       onIcon: Icon(
         Icons.favorite_rounded,
         color: FlutterFlowTheme.of(context).error,
