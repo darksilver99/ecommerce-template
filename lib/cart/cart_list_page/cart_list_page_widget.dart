@@ -154,10 +154,13 @@ class _CartListPageWidgetState extends State<CartListPageWidget> {
                                             borderRadius:
                                                 BorderRadius.circular(0.0),
                                             child: Image.network(
-                                              getJsonField(
-                                                productListItem,
-                                                r'''$.display_image''',
-                                              ).toString(),
+                                              valueOrDefault<String>(
+                                                getJsonField(
+                                                  productListItem,
+                                                  r'''$.display_image''',
+                                                )?.toString(),
+                                                'https://ecommerce-template.silver-api.com/uploads/error_image.jpg',
+                                              ),
                                               width: double.infinity,
                                               height: double.infinity,
                                               fit: BoxFit.cover,

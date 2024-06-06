@@ -9,6 +9,7 @@ import '/custom_code/actions/index.dart' as actions;
 import 'dart:async';
 import 'home_page_widget.dart' show HomePageWidget;
 import 'package:badges/badges.dart' as badges;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
