@@ -10,7 +10,7 @@ class ProductDataStruct extends BaseStruct {
     double? normalPrice,
     double? specialPrice,
     int? isBookmark,
-    String? id,
+    int? id,
   })  : _normalPrice = normalPrice,
         _specialPrice = specialPrice,
         _isBookmark = isBookmark,
@@ -40,9 +40,10 @@ class ProductDataStruct extends BaseStruct {
   bool hasIsBookmark() => _isBookmark != null;
 
   // "id" field.
-  String? _id;
-  String get id => _id ?? '';
-  set id(String? val) => _id = val;
+  int? _id;
+  int get id => _id ?? 0;
+  set id(int? val) => _id = val;
+  void incrementId(int amount) => _id = id + amount;
   bool hasId() => _id != null;
 
   static ProductDataStruct fromMap(Map<String, dynamic> data) =>
@@ -50,7 +51,7 @@ class ProductDataStruct extends BaseStruct {
         normalPrice: castToType<double>(data['normal_price']),
         specialPrice: castToType<double>(data['special_price']),
         isBookmark: castToType<int>(data['is_bookmark']),
-        id: data['id'] as String?,
+        id: castToType<int>(data['id']),
       );
 
   static ProductDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -80,7 +81,7 @@ class ProductDataStruct extends BaseStruct {
         ),
         'id': serializeParam(
           _id,
-          ParamType.String,
+          ParamType.int,
         ),
       }.withoutNulls;
 
@@ -103,7 +104,7 @@ class ProductDataStruct extends BaseStruct {
         ),
         id: deserializeParam(
           data['id'],
-          ParamType.String,
+          ParamType.int,
           false,
         ),
       );
@@ -129,7 +130,7 @@ ProductDataStruct createProductDataStruct({
   double? normalPrice,
   double? specialPrice,
   int? isBookmark,
-  String? id,
+  int? id,
 }) =>
     ProductDataStruct(
       normalPrice: normalPrice,
