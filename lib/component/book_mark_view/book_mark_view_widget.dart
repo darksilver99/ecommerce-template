@@ -38,9 +38,11 @@ class _BookMarkViewWidgetState extends State<BookMarkViewWidget> {
     super.initState();
     _model = createModel(context, () => BookMarkViewModel());
 
+    _model.isBookmark = widget.isBookmark == 1;
+
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.isBookmark = widget.isBookmark == 1;
+      //_model.isBookmark = widget.isBookmark == 1;
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
