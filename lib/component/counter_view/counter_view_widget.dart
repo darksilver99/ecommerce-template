@@ -1,4 +1,3 @@
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -83,15 +82,8 @@ class _CounterViewWidgetState extends State<CounterViewWidget> {
             .toList()
             .first
             .total,
-        updateCount: (count) async {
-          setState(() => _model.countControllerValue = count);
-          if (_model.countControllerValue == 0) {
-            FFAppState().removeFromCartDataList(CartDataStruct(
-              id: widget.productID,
-            ));
-            FFAppState().update(() {});
-          }
-        },
+        updateCount: (count) =>
+            setState(() => _model.countControllerValue = count),
         stepSize: 1,
         minimum: 0,
       ),

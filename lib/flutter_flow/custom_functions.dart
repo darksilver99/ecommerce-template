@@ -17,3 +17,10 @@ bool isSuccess(dynamic status) {
 String getProductIDFromCart(List<CartDataStruct> cartList) {
   return cartList.map((cart) => cart.id.toString()).join(',');
 }
+
+int getIndexFromCartList(
+  List<CartDataStruct>? cartList,
+  CartDataStruct? cartData,
+) {
+  return 1;
+}
