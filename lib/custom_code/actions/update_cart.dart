@@ -27,16 +27,14 @@ Future updateCart(dynamic productData) async {
       .isEmpty) {
     FFAppState().addToCartDataList(cartData);
   } else {
-    FFAppState()
+    int index = FFAppState()
         .cartDataList
-        .where((element) => productData["id"] == element.id)
-        .first
-        .total++;
+        .indexWhere((element) => element.id == productData["id"]);
+
     FFAppState()
-        .cartDataList
-        .where((element) => productData["id"] == element.id)
-        .first
-        .price += price;
+        .updateCartDataListAtIndex(index, (e) => e..total = e.total + 1);
+    FFAppState()
+        .updateCartDataListAtIndex(index, (e) => e..price = e.price + price);
   }
 
   int totalSum = FFAppState()
