@@ -240,54 +240,82 @@ class _PaymentDetailPageWidgetState extends State<PaymentDetailPageWidget> {
                         highlightColor: Colors.transparent,
                         onTap: () async {
                           if (_model.paymentSelected != null) {
-                            _model.apiResultmmj = await InsertorderCall.call(
-                              api: FFAppState().api,
-                              uid: getJsonField(
-                                FFAppState().userData,
-                                r'''$.id''',
-                              ),
-                              authorization: getJsonField(
-                                FFAppState().userData,
-                                r'''$.token''',
-                              ).toString(),
-                              paymentId: _model.paymentSelected,
-                              productDataJson: functions.getListDynamicCartData(
-                                  FFAppState().cartDataList.toList()),
-                              orderAddress: FFAppState().orderAddress,
-                              orderReciver: FFAppState().orderReceiver,
-                            );
-                            if ((_model.apiResultmmj?.succeeded ?? true)) {
-                              if (functions.isSuccess(getJsonField(
-                                (_model.apiResultmmj?.jsonBody ?? ''),
-                                r'''$.status''',
-                              ))) {
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text(getJsonField(
-                                        (_model.apiResultmmj?.jsonBody ?? ''),
-                                        r'''$.msg''',
-                                      ).toString()),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
+                            if (!_model.isLoading) {
+                              _model.isLoading = true;
+                              _model.apiResultmmj = await InsertorderCall.call(
+                                api: FFAppState().api,
+                                uid: getJsonField(
+                                  FFAppState().userData,
+                                  r'''$.id''',
+                                ),
+                                authorization: getJsonField(
+                                  FFAppState().userData,
+                                  r'''$.token''',
+                                ).toString(),
+                                paymentId: _model.paymentSelected,
+                                productDataJson:
+                                    functions.getListDynamicCartData(
+                                        FFAppState().cartDataList.toList()),
+                                orderAddress: FFAppState().orderAddress,
+                                orderReciver: FFAppState().orderReceiver,
+                              );
+                              if ((_model.apiResultmmj?.succeeded ?? true)) {
+                                if (functions.isSuccess(getJsonField(
+                                  (_model.apiResultmmj?.jsonBody ?? ''),
+                                  r'''$.status''',
+                                ))) {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text(getJsonField(
+                                          (_model.apiResultmmj?.jsonBody ?? ''),
+                                          r'''$.msg''',
+                                        ).toString()),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text(getJsonField(
+                                          (_model.apiResultmmj?.jsonBody ?? ''),
+                                          r'''$.msg''',
+                                        ).toString()),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+
+                                FFAppState().cartDataList = [];
+                                FFAppState().totalProductInCart = 0;
+                                FFAppState().totalPriceInCart = 0.0;
+
+                                context.goNamed('HomePage');
                               } else {
                                 await showDialog(
                                   context: context,
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
-                                      title: Text(getJsonField(
-                                        (_model.apiResultmmj?.jsonBody ?? ''),
-                                        r'''$.msg''',
-                                      ).toString()),
+                                      title: Text((_model
+                                              .apiResultmmj?.exceptionMessage ??
+                                          '')),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
@@ -298,31 +326,8 @@ class _PaymentDetailPageWidgetState extends State<PaymentDetailPageWidget> {
                                     );
                                   },
                                 );
+                                _model.isLoading = false;
                               }
-
-                              FFAppState().cartDataList = [];
-                              FFAppState().totalProductInCart = 0;
-                              FFAppState().totalPriceInCart = 0.0;
-
-                              context.goNamed('HomePage');
-                            } else {
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text((_model
-                                            .apiResultmmj?.exceptionMessage ??
-                                        '')),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
                             }
                           } else {
                             await showDialog(

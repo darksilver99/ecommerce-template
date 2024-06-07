@@ -17,6 +17,8 @@ class PaymentDetailPageModel extends FlutterFlowModel<PaymentDetailPageWidget> {
 
   int? paymentSelected;
 
+  bool isLoading = true;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
