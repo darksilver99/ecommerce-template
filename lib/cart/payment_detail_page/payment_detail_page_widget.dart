@@ -253,6 +253,8 @@ class _PaymentDetailPageWidgetState extends State<PaymentDetailPageWidget> {
                               paymentId: _model.paymentSelected,
                               productDataJson: functions.getListDynamicCartData(
                                   FFAppState().cartDataList.toList()),
+                              orderAddress: FFAppState().orderAddress,
+                              orderReciver: FFAppState().orderReceiver,
                             );
                             if ((_model.apiResultmmj?.succeeded ?? true)) {
                               if (functions.isSuccess(getJsonField(

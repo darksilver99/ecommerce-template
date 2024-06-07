@@ -228,11 +228,15 @@ class InsertorderCall {
     int? paymentId,
     dynamic? productDataJson,
     String? authorization = '',
+    String? orderAddress = '',
+    String? orderReciver = '',
   }) async {
     final productData = _serializeJson(productDataJson, true);
     final ffApiRequestBody = '''
 {
   "uid": ${uid},
+  "order_address":"${orderAddress}",
+"order_reciver": "${orderReciver}",
   "payment_id": ${paymentId},
   "product_data": ${productData}
 }''';

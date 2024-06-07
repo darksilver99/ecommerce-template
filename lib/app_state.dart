@@ -197,6 +197,18 @@ class FFAppState extends ChangeNotifier {
     _totalPriceInCart = _value;
     prefs.setDouble('ff_totalPriceInCart', _value);
   }
+
+  String _orderAddress = '';
+  String get orderAddress => _orderAddress;
+  set orderAddress(String _value) {
+    _orderAddress = _value;
+  }
+
+  String _orderReceiver = '';
+  String get orderReceiver => _orderReceiver;
+  set orderReceiver(String _value) {
+    _orderReceiver = _value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

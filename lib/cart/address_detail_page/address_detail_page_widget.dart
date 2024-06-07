@@ -392,7 +392,7 @@ class _AddressDetailPageWidgetState extends State<AddressDetailPageWidget> {
                                                 ? getJsonField(
                                                     textFieldGetaddressResponse
                                                         .jsonBody,
-                                                    r'''$.data''',
+                                                    r'''$.data.address''',
                                                   ).toString()
                                                 : '')
                                             : '',
@@ -498,6 +498,15 @@ class _AddressDetailPageWidgetState extends State<AddressDetailPageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          if (_model.formKey.currentState == null ||
+                              !_model.formKey.currentState!.validate()) {
+                            return;
+                          }
+                          FFAppState().orderAddress =
+                              _model.textController4.text;
+                          FFAppState().orderReceiver =
+                              '${_model.textController1.text} ${_model.textController2.text} ติดต่อ ${_model.textController3.text}';
+
                           context.pushNamed('PaymentDetailPage');
                         },
                         child: Container(
