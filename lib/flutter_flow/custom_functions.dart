@@ -28,3 +28,7 @@ int getIndexFromCartList(
 ) {
   return 1;
 }
+
+List<dynamic>? getListDynamicCartData(List<CartDataStruct> dataList) {
+  return [];
+}

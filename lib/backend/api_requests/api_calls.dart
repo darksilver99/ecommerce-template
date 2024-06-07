@@ -196,6 +196,40 @@ class SetbookmarkCall {
   }
 }
 
+class InsertorderCall {
+  static Future<ApiCallResponse> call({
+    String? api = '',
+    int? uid,
+    int? paymentId,
+    dynamic? productDataJson,
+    String? authorization = '',
+  }) async {
+    final productData = _serializeJson(productDataJson, true);
+    final ffApiRequestBody = '''
+{
+  "uid": ${uid},
+  "payment_id": ${paymentId},
+  "product_data": ${productData}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'insertorder',
+      apiUrl: '${api}/insert_order',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${authorization}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

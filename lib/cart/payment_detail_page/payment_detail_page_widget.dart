@@ -1,10 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/component/no_data_view/no_data_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/backend/schema/structs/index.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -237,30 +239,108 @@ class _PaymentDetailPageWidgetState extends State<PaymentDetailPageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          var confirmDialogResponse = await showDialog<bool>(
+                          if (_model.paymentSelected != null) {
+                            _model.apiResultmmj = await InsertorderCall.call(
+                              api: FFAppState().api,
+                              uid: getJsonField(
+                                FFAppState().userData,
+                                r'''$.id''',
+                              ),
+                              authorization: getJsonField(
+                                FFAppState().userData,
+                                r'''$.token''',
+                              ).toString(),
+                              paymentId: _model.paymentSelected,
+                              productDataJson: functions.getListDynamicCartData(
+                                  FFAppState().cartDataList.toList()),
+                            );
+                            if ((_model.apiResultmmj?.succeeded ?? true)) {
+                              if (functions.isSuccess(getJsonField(
+                                (_model.apiResultmmj?.jsonBody ?? ''),
+                                r'''$.status''',
+                              ))) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text(getJsonField(
+                                        (_model.apiResultmmj?.jsonBody ?? ''),
+                                        r'''$.msg''',
+                                      ).toString()),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text(getJsonField(
+                                        (_model.apiResultmmj?.jsonBody ?? ''),
+                                        r'''$.msg''',
+                                      ).toString()),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+
+                              FFAppState().cartDataList = [];
+                              FFAppState().totalProductInCart = 0;
+                              FFAppState().totalPriceInCart = 0.0;
+
+                              context.goNamed('HomePage');
+                            } else {
+                              await showDialog(
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: Text('Confirm ?'),
+                                    title: Text((_model
+                                            .apiResultmmj?.exceptionMessage ??
+                                        '')),
                                     actions: [
                                       TextButton(
-                                        onPressed: () => Navigator.pop(
-                                            alertDialogContext, false),
-                                        child: Text('Cancel'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(
-                                            alertDialogContext, true),
-                                        child: Text('Confirm'),
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('Ok'),
                                       ),
                                     ],
                                   );
                                 },
-                              ) ??
-                              false;
-                          if (confirmDialogResponse) {
-                            context.pushNamed('PaymentDetailPage');
+                              );
+                            }
+                          } else {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Select Required.'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           }
+
+                          setState(() {});
                         },
                         child: Container(
                           width: double.infinity,
