@@ -389,11 +389,18 @@ class _AddressDetailPageWidgetState extends State<AddressDetailPageWidget> {
                                                     .jsonBody,
                                                 r'''$.status''',
                                               ))
-                                                ? getJsonField(
-                                                    textFieldGetaddressResponse
-                                                        .jsonBody,
-                                                    r'''$.data.address''',
-                                                  ).toString()
+                                                ? (getJsonField(
+                                                          textFieldGetaddressResponse
+                                                              .jsonBody,
+                                                          r'''$.data.address''',
+                                                        ) !=
+                                                        null
+                                                    ? getJsonField(
+                                                        textFieldGetaddressResponse
+                                                            .jsonBody,
+                                                        r'''$.data.address''',
+                                                      ).toString()
+                                                    : '')
                                                 : '')
                                             : '',
                                       ),
