@@ -14,4 +14,19 @@ Future updateCartTotal(
 ) async {
   // Add your function code here!
   print("updateCartTotal : $id : $total");
+  print(FFAppState().cartDataList);
+  return;
+  if (total > 0) {
+    FFAppState().cartDataList.where((element) => element.id == id).first.total =
+        total;
+  } else {
+    FFAppState().cartDataList.removeWhere((element) => element.id == id);
+  }
+  int totalSum = FFAppState()
+      .cartDataList
+      .map((element) => element.total)
+      .reduce((value, element) => value + element);
+  FFAppState().update(() {
+    FFAppState().totalProductInCart = totalSum;
+  });
 }

@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/component/book_mark_view/book_mark_view_widget.dart';
+import '/component/no_data_view/no_data_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -256,7 +257,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ),
                           ),
                         ),
-
+                        noItemsFoundIndicatorBuilder: (_) => NoDataViewWidget(),
                         itemBuilder: (context, _, productListIndex) {
                           final productListItem = _model
                               .gridViewPagingController!

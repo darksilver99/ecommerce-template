@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/component/counter_view/counter_view_widget.dart';
+import '/component/no_data_view/no_data_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -119,6 +120,9 @@ class _CartListPageWidgetState extends State<CartListPageWidget> {
                           listViewProductlistResponse.jsonBody,
                           r'''$.data''',
                         ).toList();
+                        if (productList.isEmpty) {
+                          return NoDataViewWidget();
+                        }
                         return ListView.builder(
                           padding: EdgeInsets.fromLTRB(
                             0,

@@ -15,6 +15,10 @@ bool isSuccess(dynamic status) {
 }
 
 String getProductIDFromCart(List<CartDataStruct> cartList) {
+  if (cartList.isEmpty) {
+    return "-";
+  }
+
   return cartList.map((cart) => cart.id.toString()).join(',');
 }
 
