@@ -40,7 +40,7 @@ class _CounterViewWidgetState extends State<CounterViewWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await actions.updateCurrentPriecInCart(
+      await actions.updateCurrentPriceInCart(
         widget.currentPrice!,
         widget.productID!,
       );
