@@ -87,6 +87,7 @@ class _CounterViewWidgetState extends State<CounterViewWidget> {
           setState(() => _model.countControllerValue = count);
           await actions.updateCartTotal(
             widget.productID!,
+            _model.countControllerValue!,
           );
         },
         stepSize: 1,

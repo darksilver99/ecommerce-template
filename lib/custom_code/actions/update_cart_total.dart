@@ -8,6 +8,10 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future updateCartTotal(int id) async {
+Future updateCartTotal(
+  int id,
+  int total,
+) async {
   // Add your function code here!
+  print("updateCartTotal : $id : $total");
 }
