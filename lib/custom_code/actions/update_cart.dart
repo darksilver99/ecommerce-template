@@ -16,7 +16,6 @@ Future updateCart(dynamic productData) async {
   CartDataStruct cartData = CartDataStruct(
     id: productData["id"],
     price: price,
-    uid: FFAppState().userData["id"].toString(),
     total: 1,
   );
 
@@ -33,8 +32,6 @@ Future updateCart(dynamic productData) async {
 
     FFAppState()
         .updateCartDataListAtIndex(index, (e) => e..total = e.total + 1);
-    FFAppState()
-        .updateCartDataListAtIndex(index, (e) => e..price = e.price + price);
   }
 
   int totalSum = FFAppState()

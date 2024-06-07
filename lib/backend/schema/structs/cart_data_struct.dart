@@ -9,11 +9,9 @@ class CartDataStruct extends BaseStruct {
   CartDataStruct({
     int? id,
     double? price,
-    String? uid,
     int? total,
   })  : _id = id,
         _price = price,
-        _uid = uid,
         _total = total;
 
   // "id" field.
@@ -30,12 +28,6 @@ class CartDataStruct extends BaseStruct {
   void incrementPrice(double amount) => _price = price + amount;
   bool hasPrice() => _price != null;
 
-  // "uid" field.
-  String? _uid;
-  String get uid => _uid ?? '';
-  set uid(String? val) => _uid = val;
-  bool hasUid() => _uid != null;
-
   // "total" field.
   int? _total;
   int get total => _total ?? 0;
@@ -46,7 +38,6 @@ class CartDataStruct extends BaseStruct {
   static CartDataStruct fromMap(Map<String, dynamic> data) => CartDataStruct(
         id: castToType<int>(data['id']),
         price: castToType<double>(data['price']),
-        uid: data['uid'] as String?,
         total: castToType<int>(data['total']),
       );
 
@@ -56,7 +47,6 @@ class CartDataStruct extends BaseStruct {
   Map<String, dynamic> toMap() => {
         'id': _id,
         'price': _price,
-        'uid': _uid,
         'total': _total,
       }.withoutNulls;
 
@@ -69,10 +59,6 @@ class CartDataStruct extends BaseStruct {
         'price': serializeParam(
           _price,
           ParamType.double,
-        ),
-        'uid': serializeParam(
-          _uid,
-          ParamType.String,
         ),
         'total': serializeParam(
           _total,
@@ -92,11 +78,6 @@ class CartDataStruct extends BaseStruct {
           ParamType.double,
           false,
         ),
-        uid: deserializeParam(
-          data['uid'],
-          ParamType.String,
-          false,
-        ),
         total: deserializeParam(
           data['total'],
           ParamType.int,
@@ -112,23 +93,20 @@ class CartDataStruct extends BaseStruct {
     return other is CartDataStruct &&
         id == other.id &&
         price == other.price &&
-        uid == other.uid &&
         total == other.total;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([id, price, uid, total]);
+  int get hashCode => const ListEquality().hash([id, price, total]);
 }
 
 CartDataStruct createCartDataStruct({
   int? id,
   double? price,
-  String? uid,
   int? total,
 }) =>
     CartDataStruct(
       id: id,
       price: price,
-      uid: uid,
       total: total,
     );

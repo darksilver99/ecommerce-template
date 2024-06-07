@@ -113,6 +113,25 @@ class GetconfigCall {
   }
 }
 
+class GetpaymentlistCall {
+  static Future<ApiCallResponse> call({
+    String? api = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getpaymentlist',
+      apiUrl: '${api}/get_payment_list',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class CreateuserCall {
   static Future<ApiCallResponse> call({
     String? email = '',

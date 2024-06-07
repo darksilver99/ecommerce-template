@@ -66,6 +66,10 @@ class FFAppState extends ChangeNotifier {
       _totalProductInCart =
           prefs.getInt('ff_totalProductInCart') ?? _totalProductInCart;
     });
+    _safeInit(() {
+      _totalPriceInCart =
+          prefs.getDouble('ff_totalPriceInCart') ?? _totalPriceInCart;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -185,6 +189,13 @@ class FFAppState extends ChangeNotifier {
   set totalProductInCart(int _value) {
     _totalProductInCart = _value;
     prefs.setInt('ff_totalProductInCart', _value);
+  }
+
+  double _totalPriceInCart = 0.0;
+  double get totalPriceInCart => _totalPriceInCart;
+  set totalPriceInCart(double _value) {
+    _totalPriceInCart = _value;
+    prefs.setDouble('ff_totalPriceInCart', _value);
   }
 }
 

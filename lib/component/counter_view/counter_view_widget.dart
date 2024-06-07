@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,9 +14,11 @@ class CounterViewWidget extends StatefulWidget {
   const CounterViewWidget({
     super.key,
     required this.productID,
+    required this.currentPrice,
   });
 
   final int? productID;
+  final double? currentPrice;
 
   @override
   State<CounterViewWidget> createState() => _CounterViewWidgetState();
@@ -34,6 +37,14 @@ class _CounterViewWidgetState extends State<CounterViewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CounterViewModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await actions.updateCurrentPriecInCart(
+        widget.currentPrice!,
+        widget.productID!,
+      );
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }

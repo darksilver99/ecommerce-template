@@ -78,6 +78,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'CartListPage',
           path: '/cartListPage',
           builder: (context, params) => CartListPageWidget(),
+        ),
+        FFRoute(
+          name: 'AddressDetailPage',
+          path: '/AddressDetailPage',
+          builder: (context, params) => AddressDetailPageWidget(),
+        ),
+        FFRoute(
+          name: 'PaymentDetailPage',
+          path: '/PaymentDetailPage',
+          builder: (context, params) => PaymentDetailPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
