@@ -30,5 +30,10 @@ int getIndexFromCartList(
 }
 
 List<dynamic>? getListDynamicCartData(List<CartDataStruct> dataList) {
-  return [];
+  List<dynamic> newList = [];
+  for (var item in dataList) {
+    newList
+        .add({'product_id': item.id, 'price': item.price, 'total': item.total});
+  }
+  return newList;
 }

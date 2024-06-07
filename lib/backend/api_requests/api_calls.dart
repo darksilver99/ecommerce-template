@@ -132,6 +132,31 @@ class GetpaymentlistCall {
   }
 }
 
+class GetaddressCall {
+  static Future<ApiCallResponse> call({
+    String? api = '',
+    String? authorization = '',
+    int? uid,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getaddress',
+      apiUrl: '${api}/get_address',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${authorization}',
+      },
+      params: {
+        'uid': uid,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class CreateuserCall {
   static Future<ApiCallResponse> call({
     String? email = '',
