@@ -21,10 +21,13 @@ Future updateCartTotal(
   } else {
     FFAppState().removeAtIndexFromCartDataList(index);
   }
-  int totalSum = FFAppState()
-      .cartDataList
-      .map((element) => element.total)
-      .reduce((value, element) => value + element);
+  int totalSum = 0;
+  if (FFAppState().cartDataList.isNotEmpty) {
+    totalSum = FFAppState()
+        .cartDataList
+        .map((element) => element.total)
+        .reduce((value, element) => value + element);
+  }
   FFAppState().update(() {
     FFAppState().totalProductInCart = totalSum;
   });
